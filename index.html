@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" CONTENT="no-cache">
+    <meta http-equiv="Expires" CONTENT="0">
+
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
+		
+		
+  
+   
+	
+	
+    <title>File Upload</title>
+	
+	
+		
+		
+</head>
+<body>
+
+    
+        
+        <img id='output' style="height:100px; width:100px;"><br>
+            <input type="file" name="the_file"  onchange='openFile(event)'><br>
+    
+         <button type="submit" onclick="upload_image()">Click me</button> 
+         
+         
+            <script type="text/javascript">
+                
+                
+                //var file;
+                
+                function test()
+                {
+                    
+                   var string = "";
+                       for (i = 0; i < 50000; i++)
+                       {
+                           string += "a";
+                       }
+                       
+                       for (i = 0; i < 4; i++)
+                       {
+                           
+                           console.log(i);
+                       
+                        var fd = new FormData();
+                        fd.append("afile", string);
+                       
+                       
+                       var xhr = new XMLHttpRequest();
+                        xhr.open('POST', '/', true);
+                        xhr.setRequestHeader("Content-Type","multipart/form-data");
+                        xhr.send(fd);
+                       
+                        }
+                        
+                }
+                
+                var data = "";
+                
+                function test1()
+                {
+                    var output = document.getElementById('output');  
+                    var file =  document.getElementsByName('the_file')[0];
+                    
+                    var length = 1000;
+                   // var length = 100;
+                    var sid = 0;
+                    var end_of_file = "false";
+                    
+                    for (n = 0; n < 2; n++)
+                    {
+                    
+                    console.log(sid + "  " + data.length);
+                    
+                    if (sid + length > data.length)
+                    {
+                        length = data.length - sid;
+                        end_of_file = "true";
+                    }
+                    
+                    var string = "";
+                        
+                        for (i = sid; i < sid + length; i++)
+                        {
+                            string += data[i];
+
+                        }
+                        
+                     var fd = new FormData();
+                        fd.append("afile", string);                       
+                       
+                       var xhr = new XMLHttpRequest();
+                        xhr.open('POST', '/', true);
+                        xhr.setRequestHeader("Content-Type","multipart/form-data");
+                        xhr.send(fd);
+                        
+                        
+                        
+                        if (end_of_file == "true") 
+                        {
+                            console.log("done");
+                            break;
+                        }
+                        
+                        sid += length;
+                        
+                    }                    
+                    
+                    alert("image sent");
+                }
+                
+                
+                function test2()
+                {
+                    var output = document.getElementById('output');  
+                    var file =  document.getElementsByName('the_file')[0];
+                    
+                    var length = 50000;
+                   // var length = 100;
+                    var sid = 0;
+                    var end_of_file = "false";
+                    
+                    var string = "";
+                    
+                    while (true)
+                    {
+                    
+                    
+                    if (sid + length > data.length)
+                    {
+                        length = data.length - sid;
+                        end_of_file = "true";
+                    }
+                    
+                    console.log(sid + "  " + length + "  " + data.length);
+                    
+                        
+                        for (i = sid; i < sid + length; i++)
+                        {
+                            string += data[i];
+
+                        }
+                        
+                        if (end_of_file == "true") 
+                        {
+                            break;
+                        }
+                        
+                        sid += length;
+                        
+                    }                    
+                    
+                    console.log(string.length);
+                    
+                    
+                    
+                    
+                     var fd = new FormData();
+                        fd.append("afile", string);                       
+                       
+                       var xhr = new XMLHttpRequest();
+                        xhr.open('POST', '/', true);
+                        xhr.setRequestHeader("Content-Type","multipart/form-data");
+                        xhr.send(fd);
+                        
+                        
+                    console.log("image sent");
+                    
+                    alert("image sent");
+                }
+                
+                function test3()
+                {
+                    
+                    
+                    
+                    var output = document.getElementById('output');  
+                    var file =  document.getElementsByName('the_file')[0];
+                    
+                    var length = 10000;
+                    var sid = 0;
+                    var end_of_file = "false";
+                    
+                    var n = 0;
+                    
+                  //  while (true)
+                    {
+                        if (sid + length > data.length)
+                        {
+                            length = data.length - sid;
+                            end_of_file = "true";
+                        }
+                    
+                        var string = "";
+                        for (i = sid; i < sid + length; i++)
+                        {
+                            string += data[i];
+                        }
+
+                        var fd = new FormData();
+                           fd.append(n + "_afile", string);                       
+
+                          var xhr = new XMLHttpRequest();
+                          
+                          xhr.responseType = 'text';
+
+                            xhr.onload = function () {
+                                if (xhr.readyState === xhr.DONE) {
+                                    if (xhr.status === 200) {
+                                        if (xhr.response == "done")
+                                        {
+                                            
+                                        }
+                                    }
+                                }
+                            };
+                          
+                           xhr.open('POST', '/', true);
+                           xhr.setRequestHeader("Content-Type","multipart/form-data");
+                           xhr.send(fd);
+                           
+                        
+
+
+                       //console.log("image sent:  " + sid + " " + length);
+                    
+                        if (end_of_file == "true")
+                        {
+                          //  break;
+                        }
+                        
+                        sid += length;
+                        n++;
+                        
+                        //if (n >= 3) break;
+                    
+                        
+                    }
+                    
+                    
+                    alert("image sent");
+                    
+                }
+                
+                function send_data(n)
+                {
+                    
+                    var output = document.getElementById('output');  
+                    var file =  document.getElementsByName('the_file')[0];
+                    
+                    var length = 10000;
+                    var sid = length * n;
+                    var end_of_file = "false";
+                    
+                    
+                    {
+                        if (sid + length > data.length)
+                        {
+                            length = data.length - sid;
+                            end_of_file = "true";
+                        }
+                    
+                        var string = "";
+                        for (i = sid; i < sid + length; i++)
+                        {
+                            string += data[i];
+                        }
+                        
+                        console.log(sid + " " + end_of_file);
+
+                        var fd = new FormData();
+                        if (end_of_file == "true")
+                        {
+                           fd.append("eof", string);   
+                            
+                        }
+                        else
+                        {
+                           fd.append(n + "_afile", string);                       
+                       }
+                       
+                          var xhr = new XMLHttpRequest();
+                          
+                          xhr.responseType = 'text';
+
+                            xhr.onload = function () {
+                                if (xhr.readyState === xhr.DONE) {
+                                    if (xhr.status === 200) {
+                                        if (xhr.response == "done")
+                                        {
+                                            n++;
+                                            send_data(n);
+                                        }
+                                        
+                                        else if (xhr.response == "all done")
+                                        {
+                                            alert("image sent");
+                                        }
+                                    }
+                                }
+                            };
+                          
+                           xhr.open('POST', '/', true);
+                           xhr.setRequestHeader("Content-Type","multipart/form-data");
+                           xhr.send(fd);
+                           
+                        
+
+
+                       //console.log("image sent:  " + sid + " " + length);
+                    
+                    
+                        
+                      //  sid += length;
+                        //n++;
+                        
+                        //if (n >= 3) break;
+                    
+                        
+                    }
+                }
+                
+                function upload_image()
+                {       
+                    
+                       // test3();
+                       
+                       send_data(0);
+                    
+                }
+                
+                
+                var openFile = function(file) {
+                    var input = file.target;
+                    
+                     var reader = new FileReader();                    
+                     reader.onloadend  = function(){                                            
+                        var output = document.getElementById('output');                      
+                        output.src = reader.result;
+                        data = reader.result;
+                    };
+                    
+                    reader.readAsDataURL(input.files[0]);
+
+                    
+                };
+            
+            </script>
+    
+		
+</body>
+
+
+</html>
+
+
+
+
